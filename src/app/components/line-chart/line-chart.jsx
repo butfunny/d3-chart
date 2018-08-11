@@ -1,10 +1,6 @@
 import React from "react";
 import dataTSV from "./data";
-import { scaleOrdinal, scaleLinear, scaleTime } from 'd3-scale';
 import { tsvParse } from 'd3-dsv';
-import { schemeCategory10 } from 'd3-scale-chromatic';
-import { line as d3Line, curveBasis } from 'd3-shape';
-import { min, max, extent } from 'd3-array';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { select } from 'd3-selection';
 
