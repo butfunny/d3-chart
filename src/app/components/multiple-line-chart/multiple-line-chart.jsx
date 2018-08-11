@@ -11,14 +11,12 @@ import { select } from 'd3-selection';
 
 import dataTsv from './data';
 
-export class LineChart extends React.Component {
+export class MultipleLineChart extends React.Component {
 
     constructor(props){
         super(props);
 
     }
-
-
 
     render() {
         const svgWidth = 960,

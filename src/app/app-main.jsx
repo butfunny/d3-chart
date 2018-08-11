@@ -1,5 +1,6 @@
 import React from "react";
-import {LineChart} from "./components/multiple-line-chart/line-chart";
+import {MultipleLineChart} from "./components/multiple-line-chart/multiple-line-chart";
+import {LineChart} from "./components/line-chart/line-chart";
 export class AppMain extends React.Component {
 
     constructor(props) {
@@ -9,9 +10,9 @@ export class AppMain extends React.Component {
     render() {
         return (
             <div className="app-main">
-                <LineChart
+                <MultipleLineChart/>
 
-                />
+                <LineChart />
             </div>
         );
     }
