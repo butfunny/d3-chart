@@ -38,25 +38,13 @@ export class LineChart extends React.Component {
         y.domain(d3.extent(data, function(d) { return d.close; }));
 
 
-        function make_x_gridlines() {
-            return d3.axisBottom(x)
-                .ticks(5)
-        }
-
-        function make_y_gridlines() {
-            return d3.axisLeft(y)
-                .ticks(5)
-        }
 
         let area = d3.area()
             .x(function(d) { return x(d.date); })
             .y0(height)
             .y1(function(d) { return y(d.close); });
 
-        // svg.append("path")
-        //     .data([data])
-        //     .attr("class", "area")
-        //     .attr("d", area);
+
 
 
         return (
@@ -84,11 +72,11 @@ export class LineChart extends React.Component {
 
                     <g className="grid"
                        transform={`translate(0, ${height})`}
-                       ref={node => d3.select(node).call(make_x_gridlines().tickSize(-height).tickFormat(""))}
+                       ref={node => d3.select(node).call(d3.axisBottom(x).ticks(5).tickSize(-height).tickFormat(""))}
                     />
 
                     <g className="grid"
-                       ref={node => d3.select(node).call(make_y_gridlines().tickSize(-width).tickFormat(""))}
+                       ref={node => d3.select(node).call(d3.axisLeft(y).ticks(5).tickSize(-width).tickFormat(""))}
                     />
 
                     <path
