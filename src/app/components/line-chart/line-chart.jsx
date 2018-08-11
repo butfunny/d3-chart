@@ -48,11 +48,28 @@ export class LineChart extends React.Component {
                 .ticks(5)
         }
 
+        let area = d3.area()
+            .x(function(d) { return x(d.date); })
+            .y0(height)
+            .y1(function(d) { return y(d.close); });
+
+        // svg.append("path")
+        //     .data([data])
+        //     .attr("class", "area")
+        //     .attr("d", area);
+
+
         return (
             <svg
                 width={svgWidth}
                 height={svgHeight}
             >
+                <path className="area"
+                      d={area(data)}
+                      strokeWidth={0}
+                      transform={`translate(${margin.left}, ${margin.top})`}
+                />
+
                 <g transform={`translate(${margin.left}, ${margin.top})`}>
                     <g
                         className="axis axis--x"
@@ -83,6 +100,16 @@ export class LineChart extends React.Component {
                         strokeLinecap="round"
                         strokeWidth="1.5"
                     />
+
+                    { data.map((d, i) => (
+                        <circle
+                            onMouseEnter={() => {console.log(1111);}}
+                            key={i}
+                            r={3.5}
+                            cx={x(d.date)}
+                            cy={y(d.close)}
+                        />
+                    ))}
                 </g>
             </svg>
         );
