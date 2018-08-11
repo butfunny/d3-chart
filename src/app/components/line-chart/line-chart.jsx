@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 import dataTSV from "./data";
 
 export class LineChart extends React.Component {
@@ -90,13 +90,23 @@ export class LineChart extends React.Component {
                     />
 
                     { data.map((d, i) => (
-                        <circle
-                            onMouseEnter={() => {console.log(1111);}}
-                            key={i}
-                            r={3.5}
-                            cx={x(d.date)}
-                            cy={y(d.close)}
-                        />
+                        <Fragment key={i}>
+                            <circle
+                                onMouseEnter={() => {console.log(1111);}}
+                                r={3.5}
+                                cx={x(d.date)}
+                                cy={y(d.close)}
+                            />
+
+                            <rect
+                                strokeDasharray="5,5"
+                                className="line-rect"
+                                width={1}
+                                x={x(d.date)}
+                                y={0}
+                                height={height}
+                            />
+                        </Fragment>
                     ))}
                 </g>
             </svg>
