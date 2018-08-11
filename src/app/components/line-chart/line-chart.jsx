@@ -1,8 +1,5 @@
 import React from "react";
 import dataTSV from "./data";
-import { tsvParse } from 'd3-dsv';
-import { axisBottom, axisLeft } from 'd3-axis';
-import { select } from 'd3-selection';
 
 export class LineChart extends React.Component {
 
@@ -31,7 +28,7 @@ export class LineChart extends React.Component {
             .x(function(d) { return x(d.date); })
             .y(function(d) { return y(d.close); });
 
-        const data = tsvParse(dataTSV, (d) => {
+        const data = d3.tsvParse(dataTSV, (d) => {
             d.date = parseTime(d.date);
             d.close = +d.close;
             return d;
@@ -60,9 +57,9 @@ export class LineChart extends React.Component {
                     <g
                         className="axis axis--x"
                         transform={`translate(0, ${height})`}
-                        ref={node => select(node).call(axisBottom(x))}
+                        ref={node => d3.select(node).call(d3.axisBottom(x))}
                     />
-                    <g className="axis axis--y" ref={node => select(node).call(axisLeft(y))}>
+                    <g className="axis axis--y" ref={node => d3.select(node).call(d3.axisLeft(y))}>
                         <text transform="rotate(-90)" y="6" dy="0.71em" fill="#000">
                             Price ($)
                         </text>
@@ -70,11 +67,11 @@ export class LineChart extends React.Component {
 
                     <g className="grid"
                        transform={`translate(0, ${height})`}
-                       ref={node => select(node).call(make_x_gridlines().tickSize(-height).tickFormat(""))}
+                       ref={node => d3.select(node).call(make_x_gridlines().tickSize(-height).tickFormat(""))}
                     />
 
                     <g className="grid"
-                       ref={node => select(node).call(make_y_gridlines().tickSize(-width).tickFormat(""))}
+                       ref={node => d3.select(node).call(make_y_gridlines().tickSize(-width).tickFormat(""))}
                     />
 
                     <path
