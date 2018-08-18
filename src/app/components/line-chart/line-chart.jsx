@@ -12,7 +12,7 @@ export class LineChart extends React.Component {
         const svgWidth = 960,
             svgHeight = 500;
 
-        const margin = { top: 20, right: 80, bottom: 30, left: 50 },
+        const margin = {top: 20, right: 80, bottom: 30, left: 50},
             width = svgWidth - margin.left - margin.right,
             height = svgHeight - margin.top - margin.bottom;
 
@@ -25,8 +25,12 @@ export class LineChart extends React.Component {
             .rangeRound([height, 0]);
 
         let line = d3.line()
-            .x(function(d) { return x(d.date); })
-            .y(function(d) { return y(d.close); });
+            .x(function (d) {
+                return x(d.date);
+            })
+            .y(function (d) {
+                return y(d.close);
+            });
 
         const data = d3.tsvParse(dataTSV, (d) => {
             d.date = parseTime(d.date);
@@ -34,17 +38,37 @@ export class LineChart extends React.Component {
             return d;
         });
 
-        x.domain(d3.extent(data, function(d) { return d.date; }));
-        y.domain(d3.extent(data, function(d) { return d.close; }));
-
+        x.domain(d3.extent(data, function (d) {
+            return d.date;
+        }));
+        y.domain(d3.extent(data, function (d) {
+            return d.close;
+        }));
 
 
         let area = d3.area()
-            .x(function(d) { return x(d.date); })
+            .x(function (d) {
+                return x(d.date);
+            })
             .y0(height)
-            .y1(function(d) { return y(d.close); });
+            .y1(function (d) {
+                return y(d.close);
+            });
 
 
+        // svg.append("linearGradient")
+        //     .attr("id", "area-gradient")
+        //     .attr("gradientUnits", "userSpaceOnUse")
+        //     .attr("x1", 0).attr("y1", y(0))
+        //     .attr("x2", 0).attr("y2", y(1000))
+        //     .selectAll("stop")
+        //     .data([
+        //         {offset: "0%", color: "rgba(68, 138, 255, 0.05)"},
+        //         {offset: "100%", color: "#448aff"}
+        //     ])
+        //     .enter().append("stop")
+        //     .attr("offset", function(d) { return d.offset; })
+        //     .attr("stop-color", function(d) { return d.color; });
 
 
         return (
@@ -52,6 +76,16 @@ export class LineChart extends React.Component {
                 width={svgWidth}
                 height={svgHeight}
             >
+
+                <linearGradient id="area-gradient" gradientUnits="userSpaceOnUse"
+                                x1="100%" y1="100%"
+                >
+                    <stop offset="0%" stopColor="rgba(68, 138, 255, 0.05)"/>
+                    <stop offset="100%" stopColor="#448aff"/>
+
+                </linearGradient>
+
+
                 <path className="area"
                       d={area(data)}
                       strokeWidth={0}
@@ -89,25 +123,6 @@ export class LineChart extends React.Component {
                         strokeWidth="1.5"
                     />
 
-                    { data.map((d, i) => (
-                        <Fragment key={i}>
-                            <circle
-                                onMouseEnter={() => {console.log(1111);}}
-                                r={3.5}
-                                cx={x(d.date)}
-                                cy={y(d.close)}
-                            />
-
-                            <rect
-                                strokeDasharray="5,5"
-                                className="line-rect"
-                                width={1}
-                                x={x(d.date)}
-                                y={0}
-                                height={height}
-                            />
-                        </Fragment>
-                    ))}
                 </g>
             </svg>
         );
