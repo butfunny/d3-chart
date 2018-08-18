@@ -82,7 +82,6 @@ export class LineChart extends React.Component {
                 >
                     <stop offset="0%" stopColor="rgba(68, 138, 255, 0.05)"/>
                     <stop offset="100%" stopColor="#448aff"/>
-
                 </linearGradient>
 
 

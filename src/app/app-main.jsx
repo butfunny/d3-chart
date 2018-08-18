@@ -3,7 +3,6 @@ import {MultipleLineChart} from "./components/multiple-line-chart/multiple-line-
 import {LineChart} from "./components/line-chart/line-chart";
 import {DonutChart} from "./components/donut-chart/donut-chart";
 import {BarChart} from "./components/bar-chart/bar-chart";
-import {TooltipChart} from "./components/tooltipchart/tooltip-chart";
 export class AppMain extends React.Component {
 
     constructor(props) {
